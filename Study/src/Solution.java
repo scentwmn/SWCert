@@ -1,10 +1,7 @@
-package algorithm;
-
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class RadixSort {
+public class Solution {
 	
 	static int T;
 	static int N;
@@ -13,8 +10,7 @@ public class RadixSort {
 	static int W;
 
 	public static void main(String[] args) throws Exception {
-		long start = System.currentTimeMillis();
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\юс╫ц.txt")));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		T = Integer.parseInt(br.readLine());
 		for (int inx = 1; inx <= T; inx++) {
 			N = Integer.parseInt(br.readLine());
@@ -37,12 +33,6 @@ public class RadixSort {
 			
 			System.out.println("#"+inx + " " + process());
 		}
-		
-		if (br != null)
-			br.close();
-		
-		long end = System.currentTimeMillis();
-		System.out.println((end-start) + " ms");
 	}
 
 	static int process() {
