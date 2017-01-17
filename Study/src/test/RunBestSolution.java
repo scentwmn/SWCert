@@ -1,7 +1,9 @@
+package test;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Solution {
+public class RunBestSolution {
 	
 	static int T;
 	static int N;
