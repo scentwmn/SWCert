@@ -1,12 +1,14 @@
+package algorithm;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-public class Solution {
+public class Anagram {
 	
 	static int T;
 	static int N;
-	static String[] str = new String[100000];
-	static int[][] count = new int[100000][26];
+	static String[] str;
+	static int[][] count;
 	static int W;
 
 	public static void main(String[] args) throws Exception {
@@ -15,7 +17,9 @@ public class Solution {
 		for (int inx = 1; inx <= T; inx++) {
 			N = Integer.parseInt(br.readLine());
 			
-			for (int jnx = 0; jnx < N; jnx++) {
+			str = new String[N];
+			count = new int[N][26];
+			for (int jnx = 0; jnx < str.length; jnx++) {
 				str[jnx] = br.readLine();
 				for (int knx = 0; knx < str[jnx].length(); knx++) {
 					count[jnx][str[jnx].charAt(knx)-'a']++;
@@ -33,7 +37,7 @@ public class Solution {
 		}
 	}
 
-	static long process() {
+	static int process() {
 		int[] order = new int[N];
 		for (int inx = 0; inx < order.length; inx++) {
 			order[inx] = inx;
@@ -41,7 +45,7 @@ public class Solution {
 		
 		for (int inx = 0; inx < 26; inx++) {
 			int[] t = new int[W+1];
-			for (int jnx = 0; jnx < N; jnx++) {
+			for (int jnx = 0; jnx < count.length; jnx++) {
 				t[count[jnx][inx]]++;
 			}
 			t[0]--;
@@ -60,25 +64,27 @@ public class Solution {
 		}
 		
 		// 같은값 쌍 카운트
-		long ans = 0;
-		int cnt = 1;
-		for (int inx = 1; inx < N; inx++) {
-			boolean diff = false;
+		int acc = 1;
+		int sum = 0;
+		for (int inx = 1; inx < order.length; inx++) {
+			boolean isSame = true;
 
-			for (int j = 0; j < 26; j++) {
-				if (count[order[inx-1]][j] != count[order[inx]][j]) {
-					diff = true; break;
+			for (int jnx = 0; jnx < 26; jnx++) {
+				if (count[order[inx]][jnx] != count[order[inx-1]][jnx]) {
+					isSame = false;
+					break;
 				}
 			}
 			
-			if (diff)
-				cnt = 1;
-			else
-				cnt++;
-			
-			ans += cnt-1;
+			if (isSame)
+				acc++;
+			else {
+				sum += acc * (acc-1) / 2;
+				acc = 1;
+			}
 		}
+		sum += acc * (acc-1) / 2;
 
-		return ans;
+		return sum;
 	}
 }
