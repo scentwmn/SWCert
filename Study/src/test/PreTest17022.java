@@ -1,9 +1,10 @@
 package test;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
-public class PreTest1702 {
+public class PreTest17022 {
 	
 	static int T;
 	static int N;
@@ -11,11 +12,13 @@ public class PreTest1702 {
 	static int[] E = new int[100];
 	static int[] I = new int[11];
 	
-	static double sum;
-	static int muscle;
+	static long sum;
+	static long muscle;
 	
 	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//		long start = System.currentTimeMillis();
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("D:\\input2.txt")));
 
 		T = Integer.parseInt(br.readLine());
 		
@@ -31,6 +34,7 @@ public class PreTest1702 {
 			}
 			
 			muscle = 0;
+
 			process();
 			System.out.print("#"+(inx+1) + " " + muscle);
 			for (int jnx = 0; jnx < M; jnx++) {
@@ -39,36 +43,34 @@ public class PreTest1702 {
 			System.out.println();
 		}
 
-		if (br != null)
-			br.close();
+//		long end = System.currentTimeMillis();
+//		System.out.println((end-start) + " ms");
 	}
 
 	static void process() {
-		final double avg = sum / (M+1);
+		final double avg = (double)sum / (M+1);
 		
 		int tired = 0; // 누적 피로도
 		int i_idx = 0; // 주사맞은 횟수
 
-//		boolean isInjection = false;
 		for (int inx = 0; inx < N; inx++) {
 			muscle += tired * E[inx];
 
-			if (inx > 0 && tired <= avg && tired+E[inx] >= avg) {
+			if (tired <= avg && tired+E[inx] >= avg) {
 				if (Math.abs(tired-avg) <= Math.abs(tired+E[inx]-avg)) {
 					I[i_idx++] = inx-1;
 
 					if (inx < N-1)
 						muscle -= tired * E[inx];
+
 					tired = E[inx];
 				} else {
 					I[i_idx++] = inx;
 					tired = 0;
 				}
-//				isInjection = true;
 			}
 			else {
 				tired += E[inx];
-//				isInjection = false;
 			}
 		}
 	}

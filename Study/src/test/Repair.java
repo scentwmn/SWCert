@@ -1,8 +1,10 @@
+package test;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
 
-public class Solution {
+public class Repair {
 	
 	static int T;
 	static int C;
