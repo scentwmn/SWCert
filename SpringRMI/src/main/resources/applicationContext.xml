@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="helloBean" class="spring.HelloWorld">
+		<property name="name" value="jw0211.choi" />
+	</bean>
+
+	<!--
+	<bean id="rmiSearchService" class="rmi.server.RMISearchServiceImpl" />
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="service" ref="rmiSearchService" />
+		<property name="serviceName" value="SearchService"></property>
+		<property name="serviceInterface" value="rmi.server.RMISearchService"></property>
+	</bean>
+	-->
+
+	<bean id="accountService" class="rmi.account.AccountServiceImpl">
+		<!-- any additional properties, maybe a DAO? -->
+	</bean>
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<!-- does not necessarily have to be the same name as the bean to be exported -->
+		<property name="serviceName" value="AccountService" />
+		<property name="service" ref="accountService" />
+		<property name="serviceInterface" value="rmi.account.AccountService" />
+		<!-- defaults to 1099 -->
+		<property name="registryPort" value="1199" />
+	</bean>
+</beans>
