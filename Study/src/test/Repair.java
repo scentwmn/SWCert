@@ -10,7 +10,7 @@ public class Repair {
 	static int C;
 	static int N;
 	static int[] E = new int[1000000];
-	static String result;
+	static int result;
 	static long L1, L2;
 
 	public static void main(String[] args) throws Exception {
@@ -28,11 +28,12 @@ public class Repair {
 	
 				L1 = 0;
 				L2 = 0;
+				result = 0;
 				process();
-				if ("yes".equals(result))
-					System.out.println("#"+(inx+1) + " " + result + " " + L1 + " " + L2);
+				if (2==result)
+					System.out.println("#"+(inx+1) + " yes " + L1 + " " + L2);
 				else
-					System.out.println("#"+(inx+1) + " " + result);
+					System.out.println("#"+(inx+1) + " danger");
 			}
 			else {
 				System.out.println("#"+(inx+1) + " danger");
@@ -47,28 +48,23 @@ public class Repair {
 		int begin = 0;
 		int end = N-1;
 		
-		result = "danger";
+		result = 1;
 		
-		while (begin <= end) {
-			if (E[begin] + E[end] < C)
+		int sum = 0;
+		
+		while (begin < end) {
+			sum = E[begin] + E[end];
+			if (sum < C)
 				begin++;
-			else if (E[begin] + E[end] > C)
+			else if (sum > C)
 				end--;
 			else {
-				result = "yes";
-				if (Math.abs(L2-L1) < Math.abs(E[begin]-E[end])) {
-					L1 = E[begin];
-					L2 = E[end];
-				}
+				result = 2;
+				L1 = E[begin];
+				L2 = E[end];
 
-				begin++;
+				break;
 			}
-		}
-		
-		if (L1 > L2) {
-			long temp = L1;
-			L1 = L2;
-			L2 = temp;
 		}
 	}
 }
