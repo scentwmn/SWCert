@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 
 /**
  * [기출P-0094][2021년 02월 27일] 나이트
+ * ==> 실패
  */
 public class Solution {
 
